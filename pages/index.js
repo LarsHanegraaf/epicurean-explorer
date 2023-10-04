@@ -1,107 +1,40 @@
 import Head from 'next/head';
-import Link from 'next/link';
-import Image from 'next/image';
-import styles from '../styles/Home.module.css';
+import Layout, { siteTitle } from '../components/layout';
+import utilStyles from '../styles/utils.module.css';
+import { getSortedRecipesData } from '../lib/recipes';
 
-export default function Home() {
+export async function getStaticProps() {
+  const allRecipesData = getSortedRecipesData();
+  return {
+    props: {
+      allRecipesData,
+    }
+  };
+}
+
+export default function Home({ allRecipesData }) {
   return (
-    <div className={styles.container}>
+    <Layout home>
       <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
+        <title>{siteTitle}</title>
       </Head>
-
-      <main>
-        <Image
-          src='/images/logo.png'
-          height={144}
-          width={144}
-          alt="Epicurean Explorer Logo"
-        />
-        <h1 className={styles.title}>
-          Epicurean Explorer
-        </h1>
-
-        <p className={styles.title}>Bake a <Link href="/recipes/lasagna" >Lasagna</Link></p>
-      </main>
-
-      <footer>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel" className={styles.logo} />
-        </a>
-      </footer>
-
-      <style jsx>{`
-        main {
-          padding: 5rem 0;
-          flex: 1;
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          align-items: center;
-        }
-        footer {
-          width: 100%;
-          height: 100px;
-          border-top: 1px solid #eaeaea;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-        }
-        footer img {
-          margin-left: 0.5rem;
-        }
-        footer a {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          text-decoration: none;
-          color: inherit;
-        }
-        code {
-          background: #fafafa;
-          border-radius: 5px;
-          padding: 0.75rem;
-          font-size: 1.1rem;
-          font-family:
-            Menlo,
-            Monaco,
-            Lucida Console,
-            Liberation Mono,
-            DejaVu Sans Mono,
-            Bitstream Vera Sans Mono,
-            Courier New,
-            monospace;
-        }
-      `}</style>
-
-      <style jsx global>{`
-        html,
-        body {
-          padding: 0;
-          margin: 0;
-          font-family:
-            -apple-system,
-            BlinkMacSystemFont,
-            Segoe UI,
-            Roboto,
-            Oxygen,
-            Ubuntu,
-            Cantarell,
-            Fira Sans,
-            Droid Sans,
-            Helvetica Neue,
-            sans-serif;
-        }
-        * {
-          box-sizing: border-box;
-        }
-      `}</style>
-    </div>
+      <section className={utilStyles.headingMd}>
+        <p>Making you the best dinner party chef.</p>
+      </section>
+      <section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>
+        <h2 className={utilStyles.headingLg}>Recipes</h2>
+        <ul className={utilStyles.list}>
+          {allRecipesData.map(({ id, date, title }) => (
+            <li className={utilStyles.listItem} key={id}>
+              {title}
+              <br />
+              {id}
+              <br />
+              {date}
+            </li>
+          ))}
+          </ul>
+      </section>
+    </Layout>
   );
 }

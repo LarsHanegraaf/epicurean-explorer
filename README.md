@@ -17,3 +17,4 @@ I want to build a recipe app that is good looking and easy to use using Next.js,
 # Log
 - 2023-10-02: Setup repo, go through the Next.js tutorial.
 - 2023-10-03: Continue Next.js tutorial, use `npx create-next-app` and implement simple navigation.
+- 2023-10-04: Continue Next.js tutorial, generate home page using Static Generation and Markdown files with the recipes (not fully working yet).
