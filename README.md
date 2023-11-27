@@ -20,3 +20,4 @@ I want to build a recipe app that is good looking and easy to use using Next.js,
 - 2023-10-04: Continue Next.js tutorial, generate home page using Static Generation and Markdown files with the recipes (not fully working yet).
 - 2023-10-05: Continue Next.js tutorial, use dynamic routes.
 - 2023-11-27: Finish tutorial.
+- 2023-10-06: Add HTML to individual recipe pages.
