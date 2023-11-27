@@ -1,14 +1,22 @@
 import Layout from '../../components/layout';
+import Head from 'next/head';
 import { getAllRecipeIds, getRecipeData } from '../../lib/recipes';
+import Date from '../../components/date';
+import utilStyles from '../../styles/utils.module.css';
 
 export default function Recipe({ recipeData }) {
   return (
     <Layout>
-      {recipeData.title}
-      <br />
-      {recipeData.id}
-      <br />
-      {recipeData.date}
+      <Head>
+        <title>{recipeData.title}</title>
+      </Head>
+      <recipe>
+        <h1 className={utilStyles.headingXL}>{recipeData.title}</h1>
+        <div className={utilStyles.lightText}>
+          <Date dateString={recipeData.date} />
+        </div>
+        <div dangerouslySetInnerHTML={{ __html: recipeData.contentHtml }} />
+      </recipe>
     </Layout>
   );
 }
@@ -22,7 +30,7 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  const recipeData = getRecipeData(params.id);
+  const recipeData = await getRecipeData(params.id);
   return {
     props: {
       recipeData,
